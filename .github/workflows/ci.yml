@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      AIRFLOW_HOME: ${{ runner.temp }}/airflow
+      AIRFLOW_HOME: /tmp/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
 
     steps:
@@ -34,3 +34,4 @@ jobs:
 
       - name: Run tests
         run: python -m pytest -v tests/test_dag_imports.py
+
