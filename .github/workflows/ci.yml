@@ -29,5 +29,8 @@ jobs:
             --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-3.3.2/constraints-3.12.txt"
           pip install pytest
 
+      - name: Initialize Airflow database
+        run: airflow db migrate
+
       - name: Run tests
-        run: pytest -v
+        run: python -m pytest -v tests/test_dag_imports.py
