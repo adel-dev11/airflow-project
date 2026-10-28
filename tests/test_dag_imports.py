@@ -1,6 +1,6 @@
 import os
-
 from airflow.models import DagBag
+
 
 DAGS_FOLDER = os.path.abspath(
     os.path.join(os.path.dirname(__file__), "..", "dags")
@@ -10,7 +10,6 @@ DAGS_FOLDER = os.path.abspath(
 def test_dag_imports():
     dagbag = DagBag(
         dag_folder=DAGS_FOLDER,
-        include_examples=False,
     )
 
     assert dagbag.import_errors == {}, (
