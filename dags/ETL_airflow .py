@@ -2,7 +2,7 @@ from datetime import datetime,timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.providers.postgres.hooks.postgres import PostgresHook
-
+if True print("test")
 default_args={
         "retries":2,
         "retry_delay":timedelta(minutes=1),
