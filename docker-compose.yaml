@@ -88,6 +88,8 @@ x-airflow-common:
       condition: service_healthy
     postgres:
       condition: service_healthy
+    source-postgres:
+      condition: service_healthy
 
 services:
   postgres:
@@ -100,6 +102,23 @@ services:
       - postgres-db-volume:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "airflow"]
+      interval: 10s
+      retries: 5
+      start_period: 5s
+    restart: always
+
+
+  source-postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: orders_user
+      POSTGRES_PASSWORD: orders_password
+      POSTGRES_DB: orders_db
+    volumes:
+      - source-postgres-volume:/var/lib/postgresql/data
+      - ./init/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "orders_user", "-d", "orders_db"]
       interval: 10s
       retries: 5
       start_period: 5s
@@ -335,3 +354,4 @@ services:
 
 volumes:
   postgres-db-volume:
+  source-postgres-volume:

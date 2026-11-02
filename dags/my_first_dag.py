@@ -24,8 +24,8 @@ with DAG(
 
     task1 = PythonOperator(
         task_id="extract_data",
-        python_callable=extract_data,
-    )
+    )        python_callable=extract_data,
+
 
     task2 = PythonOperator(
         task_id="transform_data",
