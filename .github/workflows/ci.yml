@@ -1,14 +1,14 @@
-name: Airflow CI
+name: Airflow DAG CI
 
 on:
   push:
+  pull_request:
 
 jobs:
   test-dags:
     runs-on: ubuntu-latest
 
     env:
-      AIRFLOW_HOME: ${{ runner.temp }}/airflow
       AIRFLOW__CORE__LOAD_EXAMPLES: "False"
 
     steps:
@@ -19,6 +19,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
+      - name: Set AIRFLOW_HOME
+        run: echo "AIRFLOW_HOME=$RUNNER_TEMP/airflow" >> $GITHUB_ENV
 
       - name: Install Airflow and dependencies
         run: |
