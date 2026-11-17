@@ -52,7 +52,6 @@ with DAG(
         tags=["postgres","orders","report"],
         default_args=default_args,
 ) as dag:
-
      extract=PythonOperator(
            task_id='extract',
            python_callable=extract_orders,
